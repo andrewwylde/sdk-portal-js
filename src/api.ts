@@ -1043,43 +1043,6 @@ export interface ImageAllOf {
 /**
  * 
  * @export
- * @interface InternalError
- */
-export interface InternalError {
-    /**
-     * The HTTP status code of the error. Useful when passing the response body to child properties in a frontend UI. Must be returned as an integer. 
-     * @type {number}
-     * @memberof InternalError
-     */
-    'status': number;
-    /**
-     * A short, human-readable summary of the problem. It should not change between occurences of a problem, except for localization. Should be provided as \"Sentence case\" for direct use in the UI. 
-     * @type {string}
-     * @memberof InternalError
-     */
-    'title': string;
-    /**
-     * The error type.
-     * @type {string}
-     * @memberof InternalError
-     */
-    'type'?: string;
-    /**
-     * Used to return the correlation ID back to the user, in the format kong:trace:<correlation_id>. This helps us find the relevant logs when a customer reports an issue. 
-     * @type {string}
-     * @memberof InternalError
-     */
-    'instance': string;
-    /**
-     * A human readable explanation specific to this occurence of the problem. This field may contain request/entity data to help the user understand what went wrong. Enclose variable values in square brackets. Should be provided as \"Sentence case\" for direct use in the UI. 
-     * @type {string}
-     * @memberof InternalError
-     */
-    'detail': string;
-}
-/**
- * 
- * @export
  * @interface InvalidParameterItem
  */
 export interface InvalidParameterItem {
@@ -1124,6 +1087,7 @@ export const InvalidRules = {
     MinUppercase: 'min_uppercase',
     MinSymbols: 'min_symbols',
     IsArray: 'is_array',
+    IsBase64: 'is_base64',
     IsBoolean: 'is_boolean',
     IsDateTime: 'is_date_time',
     IsInteger: 'is_integer',
@@ -1771,7 +1735,7 @@ export interface ProductCatalogIndexSource {
      * @type {ProductCatalogIndexSourceLatestVersion}
      * @memberof ProductCatalogIndexSource
      */
-    'latest_version': ProductCatalogIndexSourceLatestVersion;
+    'latest_version': ProductCatalogIndexSourceLatestVersion | null;
 }
 /**
  * Last created version.
@@ -1939,13 +1903,13 @@ export interface ProductVersionListPage {
      * @type {PaginatedMeta}
      * @memberof ProductVersionListPage
      */
-    'meta'?: PaginatedMeta;
+    'meta': PaginatedMeta;
     /**
      * 
      * @type {Array<ProductVersion>}
      * @memberof ProductVersionListPage
      */
-    'data'?: Array<ProductVersion>;
+    'data': Array<ProductVersion>;
 }
 /**
  * 
@@ -1971,19 +1935,19 @@ export type ProductVersionRegistrationConfigsInnerNameEnum = typeof ProductVersi
 /**
  * API specification document for a product version.
  * @export
- * @interface ProductVersionSpec
+ * @interface ProductVersionSpecDocument
  */
-export interface ProductVersionSpec {
+export interface ProductVersionSpecDocument {
     /**
      * 
      * @type {ApiTypeEnum}
-     * @memberof ProductVersionSpec
+     * @memberof ProductVersionSpecDocument
      */
     'api_type': ApiTypeEnum;
     /**
      * 
      * @type {string}
-     * @memberof ProductVersionSpec
+     * @memberof ProductVersionSpecDocument
      */
     'content': string;
 }
@@ -6109,7 +6073,7 @@ export const VersionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProductVersionSpec(productId: string, versionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVersionSpec>> {
+        async getProductVersionSpec(productId: string, versionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVersionSpecDocument>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProductVersionSpec(productId, versionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6170,7 +6134,7 @@ export const VersionsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProductVersionSpec(productId: string, versionId: string, options?: any): AxiosPromise<ProductVersionSpec> {
+        getProductVersionSpec(productId: string, versionId: string, options?: any): AxiosPromise<ProductVersionSpecDocument> {
             return localVarFp.getProductVersionSpec(productId, versionId, options).then((request) => request(axios, basePath));
         },
         /**
