@@ -54,7 +54,7 @@ paths:
         - applications
       security:
         - portalAccessToken: []
-  /api/v2/applications/{applicationId}:
+  /api/v2/applicatios/{applicationId}:
     get:
       summary: Get an Application
       description: >-
